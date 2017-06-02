@@ -60,6 +60,11 @@ auth_user_pass_verify(struct context *ctx, const char *args[], const char *envp[
 		return OPENVPN_PLUGIN_FUNC_ERROR;
 	}
 
+	/* explicitly disable sms authentication */
+	if (strncmp(password, "sms", 4) == 0) {
+		return OPENVPN_PLUGIN_FUNC_ERROR;
+	}
+
 	pid = fork();
 	if (pid < 0) {
 		return OPENVPN_PLUGIN_FUNC_ERROR;
